@@ -144,7 +144,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
         {/* Original Text Preview */}
         <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 mb-8">
           <h3 className="text-lg font-semibold text-white mb-3">Original Text</h3>
-          <p className="text-white/70 text-sm leading-relaxed max-h-24 overflow-y-auto">
+          <p className="text-white/70 text-sm leading-relaxed max-h-24 overflow-y-auto custom-scroll">
             {inputText}
           </p>
         </div>

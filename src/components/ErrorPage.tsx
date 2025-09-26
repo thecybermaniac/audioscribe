@@ -67,7 +67,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error, onRetry, onGenerateAnother
           <h3 className="text-sm font-semibold text-white/80 mb-3 uppercase tracking-wide">
             Error Details
           </h3>
-          <p className="text-red-300 text-sm font-mono bg-red-900/20 rounded-lg p-3 break-words">
+          <p className="text-red-300 text-sm font-mono bg-red-900/20 rounded-lg p-3 break-words custom-scroll max-h-20 overflow-y-auto">
             {error}
           </p>
         </div>

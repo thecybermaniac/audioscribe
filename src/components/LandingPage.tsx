@@ -159,7 +159,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGenerateAudio }) => {
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Paste your text here... (e.g., 'Hello world, this is my first AI-generated audio!')"
-                  className="w-full h-40 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 text-white placeholder-white/40 resize-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200"
+                  className="w-full h-40 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 text-white placeholder-white/40 resize-none focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 custom-scroll"
                 />
                 
                 <div className="flex items-center justify-between mt-6">
