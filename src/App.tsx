@@ -3,6 +3,7 @@ import LandingPage from './components/LandingPage';
 import LoadingScreen from './components/LoadingScreen';
 import ResultPage from './components/ResultPage';
 import ErrorPage from './components/ErrorPage';
+import AdModal from './components/AdModal';
 
 type AppState = 'landing' | 'loading' | 'result' | 'error';
 
@@ -11,11 +12,27 @@ function App() {
   const [inputText, setInputText] = useState('');
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [error, setError] = useState<string>('');
+  const [generationCount, setGenerationCount] = useState(0);
+  const [showAdModal, setShowAdModal] = useState(false);
+  const [pendingText, setPendingText] = useState('');
 
   const handleGenerateAudio = async (text: string) => {
+    // Check if this is the second+ generation and show ad
+    if (generationCount >= 1) {
+      setPendingText(text);
+      setShowAdModal(true);
+      return;
+    }
+    
+    // First generation - proceed directly
+    await generateAudio(text);
+  };
+
+  const generateAudio = async (text: string) => {
     setInputText(text);
     setCurrentState('loading');
     setError('');
+    setGenerationCount(prev => prev + 1);
     
     try {
       // Call Groq Cloud API for text-to-audio generation
@@ -49,6 +66,19 @@ function App() {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       setCurrentState('error');
     }
+  };
+
+  const handleAdComplete = () => {
+    setShowAdModal(false);
+    if (pendingText) {
+      generateAudio(pendingText);
+      setPendingText('');
+    }
+  };
+
+  const handleAdClose = () => {
+    setShowAdModal(false);
+    setPendingText('');
   };
 
   const handleGenerateAnother = () => {
@@ -88,6 +118,12 @@ function App() {
           onGenerateAnother={handleGenerateAnother}
         />
       )}
+      
+      <AdModal 
+        isOpen={showAdModal}
+        onClose={handleAdClose}
+        onAdComplete={handleAdComplete}
+      />
     </div>
   );
 }

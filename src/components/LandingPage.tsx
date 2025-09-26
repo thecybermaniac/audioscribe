@@ -170,12 +170,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGenerateAudio }) => {
                   <button
                     onClick={handleGenerate}
                     disabled={!text.trim()}
-                    className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-pink-500/25 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 disabled:hover:scale-100"
+                    className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-pink-500/25 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 disabled:hover:scale-100 relative"
                   >
                     <Play className="w-5 h-5" />
                     Generate Audio
                     <Sparkles className="w-5 h-5" />
                   </button>
+                </div>
+                
+                <div className="text-center mt-4">
+                  <p className="text-white/50 text-xs">
+                    First generation is free • Watch a short ad for additional generations
+                  </p>
                 </div>
               </div>
             </div>
