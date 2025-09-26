@@ -49,6 +49,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGenerateAudio }) => {
 
   const handleGenerate = () => {
     if (text.trim()) {
+      // Validate text length (Groq API typically has limits)
+      if (text.length > 4000) {
+        alert('Text is too long. Please keep it under 4000 characters.');
+        return;
+      }
       onGenerateAudio(text);
     }
   };

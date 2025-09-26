@@ -54,7 +54,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
     if (audioUrl) {
       const link = document.createElement('a');
       link.href = audioUrl;
-      link.download = 'generated-audio.mp3';
+      link.download = `generated-audio-${Date.now()}.mp3`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
