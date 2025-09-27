@@ -7,6 +7,8 @@ import AdModal from './components/AdModal';
 
 type AppState = 'landing' | 'loading' | 'result' | 'error';
 
+export type VoiceOption = 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
+
 function App() {
   const [currentState, setCurrentState] = useState<AppState>('landing');
   const [inputText, setInputText] = useState('');
@@ -15,20 +17,22 @@ function App() {
   const [generationCount, setGenerationCount] = useState(0);
   const [showAdModal, setShowAdModal] = useState(false);
   const [pendingText, setPendingText] = useState('');
+  const [selectedVoice, setSelectedVoice] = useState<VoiceOption>('alloy');
 
-  const handleGenerateAudio = async (text: string) => {
+  const handleGenerateAudio = async (text: string, voice: VoiceOption) => {
     // Check if this is the second+ generation and show ad
     if (generationCount >= 1) {
       setPendingText(text);
+      setSelectedVoice(voice);
       setShowAdModal(true);
       return;
     }
     
     // First generation - proceed directly
-    await generateAudio(text);
+    await generateAudio(text, voice);
   };
 
-  const generateAudio = async (text: string) => {
+  const generateAudio = async (text: string, voice: VoiceOption) => {
     setInputText(text);
     setCurrentState('loading');
     setError('');
@@ -45,7 +49,7 @@ function App() {
         body: JSON.stringify({
           model: 'tts-1',
           input: text,
-          voice: 'alloy',
+          voice: voice,
           response_format: 'mp3'
         }),
       });
@@ -71,7 +75,7 @@ function App() {
   const handleAdComplete = () => {
     setShowAdModal(false);
     if (pendingText) {
-      generateAudio(pendingText);
+      generateAudio(pendingText, selectedVoice);
       setPendingText('');
     }
   };
@@ -90,7 +94,7 @@ function App() {
 
   const handleRetry = () => {
     if (inputText) {
-      handleGenerateAudio(inputText);
+      handleGenerateAudio(inputText, selectedVoice);
     } else {
       setCurrentState('landing');
     }
@@ -99,7 +103,11 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {currentState === 'landing' && (
-        <LandingPage onGenerateAudio={handleGenerateAudio} />
+        <LandingPage 
+          onGenerateAudio={handleGenerateAudio}
+          selectedVoice={selectedVoice}
+          onVoiceChange={setSelectedVoice}
+        />
       )}
       {currentState === 'loading' && (
         <LoadingScreen />

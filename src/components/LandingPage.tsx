@@ -1,11 +1,27 @@
 import React, { useState, useRef } from 'react';
-import { Upload, FileText, Sparkles, Play } from 'lucide-react';
+import { Upload, FileText, Sparkles, Play, Mic } from 'lucide-react';
+import { VoiceOption } from '../App';
 
 interface LandingPageProps {
-  onGenerateAudio: (text: string) => void;
+  onGenerateAudio: (text: string, voice: VoiceOption) => void;
+  selectedVoice: VoiceOption;
+  onVoiceChange: (voice: VoiceOption) => void;
 }
 
-const LandingPage: React.FC<LandingPageProps> = ({ onGenerateAudio }) => {
+const voiceOptions: { value: VoiceOption; label: string; description: string }[] = [
+  { value: 'alloy', label: 'Alloy', description: 'Neutral and balanced' },
+  { value: 'echo', label: 'Echo', description: 'Clear and articulate' },
+  { value: 'fable', label: 'Fable', description: 'Warm and storytelling' },
+  { value: 'onyx', label: 'Onyx', description: 'Deep and authoritative' },
+  { value: 'nova', label: 'Nova', description: 'Bright and energetic' },
+  { value: 'shimmer', label: 'Shimmer', description: 'Soft and gentle' },
+];
+
+const LandingPage: React.FC<LandingPageProps> = ({ 
+  onGenerateAudio, 
+  selectedVoice, 
+  onVoiceChange 
+}) => {
   const [text, setText] = useState('');
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -54,7 +70,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGenerateAudio }) => {
         alert('Text is too long. Please keep it under 4000 characters.');
         return;
       }
-      onGenerateAudio(text);
+      onGenerateAudio(text, selectedVoice);
     }
   };
 
@@ -155,6 +171,31 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGenerateAudio }) => {
               </div>
 
               <div className="mt-8">
+                {/* Voice Selection */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Mic className="w-5 h-5 text-purple-300" />
+                    <h3 className="text-lg font-semibold text-white">Choose Voice</h3>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {voiceOptions.map((voice) => (
+                      <button
+                        key={voice.value}
+                        onClick={() => onVoiceChange(voice.value)}
+                        className={`p-4 rounded-xl border transition-all duration-200 text-left ${
+                          selectedVoice === voice.value
+                            ? 'border-purple-400 bg-purple-500/20 shadow-lg shadow-purple-500/25'
+                            : 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10'
+                        }`}
+                      >
+                        <div className="font-medium text-white mb-1">{voice.label}</div>
+                        <div className="text-white/60 text-sm">{voice.description}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <textarea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
@@ -180,7 +221,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGenerateAudio }) => {
                 
                 <div className="text-center mt-4">
                   <p className="text-white/50 text-xs">
-                    First generation is free • Watch a short ad for additional generations
+                    First generation is free • View a quick ad for additional generations
                   </p>
                 </div>
               </div>

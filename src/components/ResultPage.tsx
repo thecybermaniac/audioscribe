@@ -51,13 +51,22 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
   };
 
   const handleDownload = () => {
-    if (audioUrl) {
-      const link = document.createElement('a');
-      link.href = audioUrl;
-      link.download = `generated-audio-${Date.now()}.mp3`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    // 30% chance to redirect to ad, 70% chance to download
+    const shouldRedirectToAd = Math.random() < 0.3;
+    
+    if (shouldRedirectToAd) {
+      // Redirect to ad website
+      window.open('https://example.com/download-ad', '_blank');
+    } else {
+      // Proceed with normal download
+      if (audioUrl) {
+        const link = document.createElement('a');
+        link.href = audioUrl;
+        link.download = `generated-audio-${Date.now()}.mp3`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     }
   };
 
