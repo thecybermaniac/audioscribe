@@ -75,26 +75,7 @@ const LandingPage: React.FC<LandingPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* AdSense Banner Placeholder */}
-      <div className="w-full h-16 bg-gradient-to-r from-blue-100 to-teal-100 border-b border-gray-200 flex items-center justify-center">
-        <div className="text-gray-600 text-sm font-medium">
-          Google AdSense Banner Space (728x90)
-        </div>
-      </div>
-
-      <div className="flex-1 flex">
-        {/* Sidebar AdSense Placeholder */}
-        <div className="hidden lg:block w-40 bg-gradient-to-b from-blue-100 to-teal-100 border-r border-gray-200">
-          <div className="h-full flex items-center justify-center">
-            <div className="text-gray-600 text-xs text-center transform -rotate-90 whitespace-nowrap">
-              AdSense Sidebar (160x600)
-            </div>
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <div className="flex-1 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12">
           <div className="max-w-4xl w-full">
             {/* Hero Section */}
             <div className="text-center mb-16">
@@ -254,8 +235,6 @@ const LandingPage: React.FC<LandingPageProps> = ({
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </div>
   );
 };
