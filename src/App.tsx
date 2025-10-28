@@ -34,6 +34,7 @@ function App() {
 
   const generateAudio = async (text: string, voice: VoiceOption) => {
     setInputText(text);
+    setSelectedVoice(voice);
     setCurrentState('loading');
     setError('');
     setGenerationCount(prev => prev + 1);
