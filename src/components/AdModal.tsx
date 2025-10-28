@@ -49,8 +49,8 @@ const AdModal: React.FC<AdModalProps> = ({ isOpen, onClose, onAdComplete }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 p-8 max-w-md w-full shadow-2xl">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white/95 backdrop-blur-xl rounded-3xl border border-gray-200 p-8 max-w-md w-full shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
@@ -58,17 +58,17 @@ const AdModal: React.FC<AdModalProps> = ({ isOpen, onClose, onAdComplete }) => {
               <Gift className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-white">Advertisement</h3>
-              <p className="text-white/60 text-sm">Support our free service</p>
+              <h3 className="text-lg font-semibold text-gray-800">Advertisement</h3>
+              <p className="text-gray-600 text-sm">Support our free service</p>
             </div>
           </div>
           
           {canClose && (
             <button
               onClick={handleClose}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
             >
-              <X className="w-5 h-5 text-white" />
+              <X className="w-5 h-5 text-gray-600" />
             </button>
           )}
         </div>
@@ -76,18 +76,18 @@ const AdModal: React.FC<AdModalProps> = ({ isOpen, onClose, onAdComplete }) => {
         {/* Ad Content */}
         <div 
           onClick={handleAdClick}
-          className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl p-8 mb-6 cursor-pointer hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-200 border border-white/10"
+          className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl p-8 mb-6 cursor-pointer hover:from-blue-100 hover:to-teal-100 transition-all duration-200 border border-blue-200"
         >
           <div className="text-center">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-teal-500 flex items-center justify-center mx-auto mb-4">
               <ExternalLink className="w-8 h-8 text-white" />
             </div>
             
-            <h4 className="text-xl font-bold text-white mb-2">
+            <h4 className="text-xl font-bold text-gray-800 mb-2">
               Premium AI Tools
             </h4>
             
-            <p className="text-white/70 text-sm mb-4">
+            <p className="text-gray-600 text-sm mb-4">
               Discover advanced AI tools for content creation, design, and productivity. 
               Get 50% off your first month!
             </p>
@@ -104,17 +104,17 @@ const AdModal: React.FC<AdModalProps> = ({ isOpen, onClose, onAdComplete }) => {
           {canClose ? (
             <button
               onClick={handleContinue}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold hover:from-green-600 hover:to-emerald-600 transition-all duration-200"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold hover:from-blue-600 hover:to-teal-600 transition-all duration-200"
             >
               Continue to Audio Generation
             </button>
           ) : (
-            <div className="w-full py-3 rounded-xl bg-white/10 text-white text-center font-semibold">
+            <div className="w-full py-3 rounded-xl bg-gray-100 text-gray-600 text-center font-semibold">
               Please wait {countdown} seconds...
             </div>
           )}
           
-          <p className="text-white/50 text-xs text-center">
+          <p className="text-gray-500 text-xs text-center">
             Ads help us keep this service free for everyone
           </p>
         </div>

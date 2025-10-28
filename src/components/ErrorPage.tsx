@@ -48,26 +48,26 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error, onRetry, onGenerateAnother
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="max-w-2xl w-full text-center">
         {/* Error Icon */}
-        <div className="inline-flex items-center justify-center p-4 rounded-full bg-gradient-to-r from-red-500/20 to-orange-500/20 backdrop-blur-sm border border-red-400/20 mb-8">
+        <div className="inline-flex items-center justify-center p-4 rounded-full bg-gradient-to-r from-red-100 to-orange-100 border border-red-200 mb-8">
           {getErrorIcon()}
         </div>
         
         {/* Error Title */}
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-white via-red-200 to-orange-200 bg-clip-text text-transparent mb-6">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-800 via-red-700 to-orange-700 bg-clip-text text-transparent mb-6">
           {getErrorTitle()}
         </h1>
         
         {/* Error Description */}
-        <p className="text-white/70 text-lg mb-8 max-w-lg mx-auto">
+        <p className="text-gray-600 text-lg mb-8 max-w-lg mx-auto">
           {getErrorDescription()}
         </p>
 
         {/* Error Details */}
-        <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 mb-8 max-w-lg mx-auto">
-          <h3 className="text-sm font-semibold text-white/80 mb-3 uppercase tracking-wide">
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 mb-8 max-w-lg mx-auto">
+          <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
             Error Details
           </h3>
-          <p className="text-red-300 text-sm font-mono bg-red-900/20 rounded-lg p-3 break-words custom-scroll max-h-20 overflow-y-auto">
+          <p className="text-red-600 text-sm font-mono bg-red-50 rounded-lg p-3 break-words custom-scroll max-h-20 overflow-y-auto border border-red-200">
             {error}
           </p>
         </div>
@@ -84,7 +84,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error, onRetry, onGenerateAnother
 
           <button
             onClick={onGenerateAnother}
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-purple-500/25 transform hover:scale-105"
+            className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-500 to-teal-500 text-white font-semibold hover:from-blue-600 hover:to-teal-600 transition-all duration-200 shadow-lg hover:shadow-blue-500/25 transform hover:scale-105"
           >
             <ArrowLeft className="w-5 h-5" />
             Start Over
@@ -93,19 +93,19 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ error, onRetry, onGenerateAnother
 
         {/* Help Text */}
         <div className="mt-12 text-center">
-          <p className="text-white/50 text-sm mb-4">
+          <p className="text-gray-500 text-sm mb-4">
             Still having trouble? Here are some things to check:
           </p>
           <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto text-left">
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-              <h4 className="text-white/80 font-medium mb-2">Network Issues</h4>
-              <p className="text-white/60 text-sm">
+            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-gray-200">
+              <h4 className="text-gray-700 font-medium mb-2">Network Issues</h4>
+              <p className="text-gray-600 text-sm">
                 Ensure you have a stable internet connection
               </p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10">
-              <h4 className="text-white/80 font-medium mb-2">Text Length</h4>
-              <p className="text-white/60 text-sm">
+            <div className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-gray-200">
+              <h4 className="text-gray-700 font-medium mb-2">Text Length</h4>
+              <p className="text-gray-600 text-sm">
                 Try with shorter text (under 1000 characters)
               </p>
             </div>
