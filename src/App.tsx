@@ -43,9 +43,9 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'tts-1',
+          model: 'playai-tts',
           input: text,
-          voice: 'alloy',
+          voice: 'Aaliyah-PlayAI',
           response_format: 'mp3'
         }),
       });
