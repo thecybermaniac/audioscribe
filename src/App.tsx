@@ -7,6 +7,8 @@ import AdModal from './components/AdModal';
 
 type AppState = 'landing' | 'loading' | 'result' | 'error';
 
+export type VoiceOption = 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
+
 function App() {
   const [currentState, setCurrentState] = useState<AppState>('landing');
   const [inputText, setInputText] = useState('');
@@ -15,21 +17,24 @@ function App() {
   const [generationCount, setGenerationCount] = useState(0);
   const [showAdModal, setShowAdModal] = useState(false);
   const [pendingText, setPendingText] = useState('');
+  const [selectedVoice, setSelectedVoice] = useState<VoiceOption>('alloy');
 
-  const handleGenerateAudio = async (text: string) => {
+  const handleGenerateAudio = async (text: string, voice: VoiceOption) => {
     // Check if this is the second+ generation and show ad
     if (generationCount >= 1) {
       setPendingText(text);
+      setSelectedVoice(voice);
       setShowAdModal(true);
       return;
     }
     
     // First generation - proceed directly
-    await generateAudio(text);
+    await generateAudio(text, voice);
   };
 
-  const generateAudio = async (text: string) => {
+  const generateAudio = async (text: string, voice: VoiceOption) => {
     setInputText(text);
+    setSelectedVoice(voice);
     setCurrentState('loading');
     setError('');
     setGenerationCount(prev => prev + 1);
@@ -45,7 +50,11 @@ function App() {
         body: JSON.stringify({
           model: 'playai-tts',
           input: text,
+<<<<<<< HEAD
           voice: 'Aaliyah-PlayAI',
+=======
+          voice: voice,
+>>>>>>> ddafbc48f1822d341889128005870c18a7b204e6
           response_format: 'mp3'
         }),
       });
@@ -71,7 +80,7 @@ function App() {
   const handleAdComplete = () => {
     setShowAdModal(false);
     if (pendingText) {
-      generateAudio(pendingText);
+      generateAudio(pendingText, selectedVoice);
       setPendingText('');
     }
   };
@@ -90,16 +99,20 @@ function App() {
 
   const handleRetry = () => {
     if (inputText) {
-      handleGenerateAudio(inputText);
+      handleGenerateAudio(inputText, selectedVoice);
     } else {
       setCurrentState('landing');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-teal-50">
       {currentState === 'landing' && (
-        <LandingPage onGenerateAudio={handleGenerateAudio} />
+        <LandingPage 
+          onGenerateAudio={handleGenerateAudio}
+          selectedVoice={selectedVoice}
+          onVoiceChange={setSelectedVoice}
+        />
       )}
       {currentState === 'loading' && (
         <LoadingScreen />

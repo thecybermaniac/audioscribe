@@ -27,7 +27,7 @@ const LoadingScreen: React.FC = () => {
             {[...Array(7)].map((_, i) => (
               <div
                 key={i}
-                className="w-3 bg-gradient-to-t from-purple-500 to-pink-400 rounded-full animate-pulse"
+                className="w-3 bg-gradient-to-t from-blue-500 to-teal-400 rounded-full animate-pulse"
                 style={{
                   height: `${20 + Math.sin((Date.now() / 200) + i) * 20 + 20}px`,
                   animationDelay: `${i * 0.1}s`,
@@ -40,8 +40,8 @@ const LoadingScreen: React.FC = () => {
           {/* Pulsing Circle */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <div className="relative">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 animate-ping opacity-75"></div>
-              <div className="absolute inset-0 w-16 h-16 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-teal-500 animate-ping opacity-75"></div>
+              <div className="absolute inset-0 w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-teal-600 flex items-center justify-center">
                 <Volume2 className="w-8 h-8 text-white" />
               </div>
             </div>
@@ -49,25 +49,25 @@ const LoadingScreen: React.FC = () => {
         </div>
 
         {/* Loading Text */}
-        <h2 className="text-3xl font-bold text-white mb-6">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6">
           Your audio is being generated...
         </h2>
         
-        <p className="text-white/60 text-lg mb-8">
+        <p className="text-gray-600 text-lg mb-8">
           Our AI is crafting your perfect audio experience
         </p>
 
         {/* Progress Bar */}
-        <div className="w-full bg-white/10 rounded-full h-3 mb-6 overflow-hidden">
+        <div className="w-full bg-gray-200 rounded-full h-3 mb-6 overflow-hidden">
           <div 
-            className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500 ease-out relative overflow-hidden"
+            className="h-full bg-gradient-to-r from-blue-500 to-teal-500 rounded-full transition-all duration-500 ease-out relative overflow-hidden"
             style={{ width: `${Math.min(progress, 100)}%` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
           </div>
         </div>
 
-        <div className="text-white/50 text-sm">
+        <div className="text-gray-500 text-sm">
           {Math.round(Math.min(progress, 100))}% complete
         </div>
 
@@ -76,7 +76,7 @@ const LoadingScreen: React.FC = () => {
           {[...Array(20)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
+              className="absolute w-1 h-1 bg-blue-400 rounded-full animate-pulse"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
