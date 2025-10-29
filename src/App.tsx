@@ -50,11 +50,7 @@ function App() {
         body: JSON.stringify({
           model: 'playai-tts',
           input: text,
-<<<<<<< HEAD
-          voice: 'Aaliyah-PlayAI',
-=======
           voice: voice,
->>>>>>> ddafbc48f1822d341889128005870c18a7b204e6
           response_format: 'mp3'
         }),
       });
