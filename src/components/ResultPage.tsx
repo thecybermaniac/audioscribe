@@ -38,7 +38,10 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
 
   const handleEnded = () => {
     setIsPlaying(false);
-    setCurrentTime(duration);
+    setCurrentTime(duration || 0);
+    if (audioRef.current) {
+      audioRef.current.currentTime = duration || 0;
+    }
   };
   const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = parseFloat(e.target.value);
