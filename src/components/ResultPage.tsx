@@ -71,7 +71,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 pt-5 pb-5">
       <div className="max-w-2xl w-full">
         {/* Success Badge */}
         <div className="text-center mb-8">
@@ -174,14 +174,6 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
           >
             <RotateCcw className="w-5 h-5" />
             Generate Another
-          </button>
-        </div>
-
-        {/* Share Options */}
-        <div className="text-center mt-8">
-          <button className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200 text-gray-600 hover:text-gray-800 hover:bg-white/80 transition-all duration-200">
-            <Share2 className="w-4 h-4" />
-            Share your audio
           </button>
         </div>
       </div>

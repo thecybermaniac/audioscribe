@@ -9,12 +9,12 @@ interface LandingPageProps {
 }
 
 const voiceOptions: { value: VoiceOption; label: string; description: string }[] = [
-  { value: 'alloy', label: 'Alloy', description: 'Neutral and balanced' },
-  { value: 'echo', label: 'Echo', description: 'Clear and articulate' },
-  { value: 'fable', label: 'Fable', description: 'Warm and storytelling' },
-  { value: 'onyx', label: 'Onyx', description: 'Deep and authoritative' },
-  { value: 'nova', label: 'Nova', description: 'Bright and energetic' },
-  { value: 'shimmer', label: 'Shimmer', description: 'Soft and gentle' },
+  { value: 'Chip-PlayAI', label: 'Alloy', description: 'Neutral and balanced' },
+  { value: 'Arista-PlayAI', label: 'Echo', description: 'Clear and articulate' },
+  { value: 'Briggs-PlayAI', label: 'Fable', description: 'Warm and storytelling' },
+  { value: 'Fritz-PlayAI', label: 'Onyx', description: 'Deep and authoritative' },
+  { value: 'Celeste-PlayAI', label: 'Nova', description: 'Bright and energetic' },
+  { value: 'Cheyenne-PlayAI', label: 'Shimmer', description: 'Soft and gentle' },
 ];
 
 const LandingPage: React.FC<LandingPageProps> = ({ 
