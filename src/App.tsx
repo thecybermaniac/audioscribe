@@ -48,22 +48,20 @@ function App() {
 
     try {
       // Call Groq Cloud API for text-to-audio generation
-      const response = await fetch(
-        "https://api.groq.com/openai/v1/audio/speech",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "playai-tts",
-            input: text,
-            voice: voice,
-            response_format: "mp3",
-          }),
-        }
-      );
+      const response = await fetch('https://api.groq.com/openai/v1/audio/speech', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_GROQ_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'playai-tts',
+          input: text,
+          voice: voice,
+          response_format: 'mp3',
+          speed: 1.0,
+        }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));

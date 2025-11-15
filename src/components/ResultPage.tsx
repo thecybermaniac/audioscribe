@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Play, Pause, Download, RotateCcw, Share2, Volume2 } from 'lucide-react';
 
 interface ResultPageProps {
@@ -12,12 +12,30 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isEnded, setIsEnded] = useState(false);
+
+  // Reset ended state when audio URL changes
+  useEffect(() => {
+    setIsEnded(false);
+    setCurrentTime(0);
+  }, [audioUrl]);
+
+  // Force currentTime to match duration when audio ends
+  useEffect(() => {
+    if (isEnded && duration > 0) {
+      setCurrentTime(duration);
+    }
+  }, [isEnded, duration]);
 
   const togglePlayPause = () => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
+        if (isEnded) {
+          audioRef.current.currentTime = 0;
+          setIsEnded(false);
+        }
         audioRef.current.play();
       }
       setIsPlaying(!isPlaying);
@@ -25,14 +43,22 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
   };
 
   const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
+    if (audioRef.current && !isEnded) {
+      const newTime = audioRef.current.currentTime;
+      setCurrentTime(newTime);
+      
+      // Check if we're at the end (use a small threshold for very short audio)
+      const timeThreshold = Math.min(0.1, duration * 0.1); // Use 10% of duration or 0.1s, whichever is smaller
+      if (duration > 0 && (duration - newTime) <= timeThreshold) {
+        setCurrentTime(duration);
+      }
     }
   };
 
   const handleLoadedMetadata = () => {
     if (audioRef.current) {
-      setDuration(audioRef.current.duration);
+      const audioDuration = audioRef.current.duration;
+      setDuration(audioDuration);
     }
   };
 
@@ -41,6 +67,20 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
     if (audioRef.current) {
       audioRef.current.currentTime = newTime;
       setCurrentTime(newTime);
+      // Reset ended state if seeking before the end
+      if (isEnded && newTime < duration) {
+        setIsEnded(false);
+        setIsPlaying(false);
+      }
+    }
+  };
+
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setIsEnded(true);
+    // Force currentTime to exactly match duration
+    if (audioRef.current && duration > 0) {
+      setCurrentTime(duration);
     }
   };
 
@@ -48,6 +88,18 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  // Calculate display time to ensure slider reaches end
+  const getDisplayTime = () => {
+    if (isEnded) {
+      return duration;
+    }
+    // For very short audio, ensure we don't have floating point precision issues
+    if (duration > 0 && Math.abs(duration - currentTime) < 0.001) {
+      return duration;
+    }
+    return currentTime;
   };
 
   const handleDownload = () => {
@@ -96,7 +148,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
               src={audioUrl}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
-              onEnded={() => setIsPlaying(false)}
+              onEnded={handleEnded}
             />
           )}
 
@@ -111,7 +163,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
                   }`}
                   style={{
                     height: `${10 + Math.random() * 50}px`,
-                    opacity: currentTime / duration > i / 40 ? 1 : 0.3,
+                    opacity: getDisplayTime() / duration > i / 40 ? 1 : 0.3,
                   }}
                 />
               ))}
@@ -137,12 +189,13 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
                   type="range"
                   min="0"
                   max={duration || 0}
-                  value={currentTime}
+                  value={getDisplayTime()}
                   onChange={handleSeek}
                   className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
+                  step="0.001" // Very small step for short audio files
                 />
                 <div className="flex justify-between text-sm text-gray-500 mt-2">
-                  <span>{formatTime(currentTime)}</span>
+                  <span>{formatTime(getDisplayTime())}</span>
                   <span>{formatTime(duration)}</span>
                 </div>
               </div>
