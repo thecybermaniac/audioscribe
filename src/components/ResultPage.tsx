@@ -100,7 +100,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
               src={audioUrl}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
-              onEnded={() => setIsPlaying(false)}
+              onEnded={handleEnded}
             />
           )}
 
@@ -115,7 +115,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
                   }`}
                   style={{
                     height: `${10 + Math.random() * 50}px`,
-                    opacity: duration > 0 && (currentTime / duration) >= (i / 40) ? 1 : 0.3,
+                    opacity: duration > 0 && (currentTime / duration) * 40 >= i ? 1 : 0.3,
                   }}
                 />
               ))}
@@ -144,6 +144,9 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
                   value={currentTime}
                   onChange={handleSeek}
                   className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer slider"
+                  style={{
+                    background: `linear-gradient(to right, #3b82f6 0%, #14b8a6 ${duration > 0 ? (currentTime / duration) * 100 : 0}%, #e5e7eb ${duration > 0 ? (currentTime / duration) * 100 : 0}%, #e5e7eb 100%)`
+                  }}
                 />
                 <div className="flex justify-between text-sm text-gray-500 mt-2">
                   <span>{formatTime(currentTime)}</span>
