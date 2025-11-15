@@ -51,7 +51,8 @@ function App() {
           model: 'playai-tts',
           input: text,
           voice: voice,
-          response_format: 'mp3'
+          response_format: 'mp3',
+          speed: 1.25
         }),
       });
 

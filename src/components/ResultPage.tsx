@@ -115,7 +115,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ audioUrl, inputText, onGenerate
                   }`}
                   style={{
                     height: `${10 + Math.random() * 50}px`,
-                    opacity: currentTime / duration > i / 40 ? 1 : 0.3,
+                    opacity: duration > 0 && (currentTime / duration) >= (i / 40) ? 1 : 0.3,
                   }}
                 />
               ))}
