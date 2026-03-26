@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Play, Pause, Download, RotateCcw, Share2, Volume2 } from 'lucide-react';
+import { Play, Pause, Download, RotateCcw, Volume2 } from 'lucide-react';
 
 interface ResultPageProps {
   audioUrl: string | null;

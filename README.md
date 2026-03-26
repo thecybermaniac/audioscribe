@@ -2,6 +2,8 @@
 
 A modern, minimalistic web application that converts text to audio using Groq Cloud AI models.
 
+![AudioScribe](/src/assets/thumbnail.png)
+
 ## Features
 
 - 🎵 **Text-to-Audio Generation**: Convert any text to high-quality audio using Groq Cloud AI
